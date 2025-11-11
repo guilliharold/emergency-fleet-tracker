@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Vehicles Victoria</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <h1 class="text-3xl font-bold mb-4 text-center">Emergency Vehicles Victoria</h1>
+  <input id="search" class="border p-2 w-full md:w-1/2 block mx-auto mb-6 rounded shadow-sm" placeholder="Search by service (e.g., CFA, FRV, VICSES)">
+  <div id="vehicleGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+
+  <script>
+    async function loadVehicles() {
+      const res = await fetch('vehicles.json');
+      const data = await res.json();
+      const search = document.getElementById('search');
+      const grid = document.getElementById('vehicleGrid');
+
+      function render(filter = '') {
+        grid.innerHTML = '';
+        data.filter(v => 
+          v.service.toLowerCase().includes(filter.toLowerCase()) ||
+          v.name.toLowerCase().includes(filter.toLowerCase())
+        ).forEach(v => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-4 rounded-lg shadow';
+          card.innerHTML = `
+            <img src=\"${v.image_url}\" alt=\"${v.name}\" class=\"rounded-lg mb-3 w-full h-48 object-cover\">
+            <h2 class=\"text-xl font-semibold\">${v.name}</h2>
+            <p>Service: ${v.service}</p>
+            <p>Class: ${v.class}</p>
+            <p>Chassis: ${v.chassis}</p>
+            <p>Crew: ${v.crew}</p>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      search.addEventListener('input', e => render(e.target.value));
+      render();
+    }
+
+    loadVehicles();
+  </script>
+</body>
+</html>
