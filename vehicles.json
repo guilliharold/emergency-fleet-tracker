@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "CFA Tanker 1",
+    "service": "CFA",
+    "class": "Tanker",
+    "chassis": "Isuzu FTS 800",
+    "crew": "3",
+    "image_url": "https://placehold.co/400x300"
+  },
+  {
+    "id": 2,
+    "name": "FRV Pump 2",
+    "service": "FRV",
+    "class": "Pumper",
+    "chassis": "Scania 93M",
+    "crew": "4",
+    "image_url": "https://placehold.co/400x300"
+  }
+]
